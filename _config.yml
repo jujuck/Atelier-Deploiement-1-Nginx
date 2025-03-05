@@ -1,6 +1,6 @@
 remote_theme: WildCodeSchool/workshops-jekyll-theme
 
-# disable the jekyll-titles-from-headings plugin, 
+# disable the jekyll-titles-from-headings plugin,
 # so first h1 will not be used as prior title of you page
 titles_from_headings:
   enabled: false
@@ -12,8 +12,8 @@ defaults:
       layout: "default" # possible values: default or tic-tac
 
 style: dev # possible values: dev, data, ciber, design or wild.
-title: ''
-description: ''
+title: ""
+description: ""
 # type: ''
 # main_image: '' # http or relative path to image
 show_clone: false

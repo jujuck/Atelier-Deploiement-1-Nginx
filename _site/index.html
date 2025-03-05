@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Atelier-Deploiement-1-Nginx | Wild code school</title>
+<link rel="stylesheet" href="/assets/css/style.css?v=bfd30b6b4df9be7bb26dafdfa2325a3d742bdcfc">
+<link rel="stylesheet" href="/assets/css/syntax_monokai.css?v=bfd30b6b4df9be7bb26dafdfa2325a3d742bdcfc">
+
+
+<link rel="icon" href="/assets/images/fav-icon-dev.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/theme-dev.css?v=bfd30b6b4df9be7bb26dafdfa2325a3d742bdcfc">
+
+<style>
+    :root {
+        --bootstrap-icons-font: 'bootstrap-icons';
+    }
+
+    @font-face {
+        font-display: block;
+        font-family: 'bootstrap-icons';
+        src: url("/assets/fonts/bootstrap-icons.woff2") format("woff2"),
+        url("/assets/fonts/bootstrap-icons.woff") format("woff");
+    }
+    @font-face {
+        font-family: 'proxima';
+        src: url("/assets/fonts/proxima-nova/proximanova-bold-webfont.woff2") format('woff2'),
+            url("/assets/fonts/proxima-nova/proximanova-bold-webfont.woff") format('woff');
+        font-weight: bold;
+        font-style: normal;
+
+    }
+
+    @font-face {
+        font-family: 'proxima';
+        src: url("/assets/fonts/proxima-nova/proximanova-boldit-webfont.woff2") format('woff2'),
+            url("/assets/fonts/proxima-nova/proximanova-boldit-webfont.woff") format('woff');
+        font-weight: bold;
+        font-style: italic;
+
+    }
+
+    @font-face {
+        font-family: 'proxima';
+        src: url("/assets/fonts/proxima-nova/proximanova-regular-webfont.woff2") format('woff2'),
+            url("/assets/fonts/proxima-nova/proximanova-regular-webfont.woff") format('woff');
+        font-weight: normal;
+        font-style: normal;
+
+    }
+
+    @font-face {
+        font-family: 'proxima';
+        src: url("/assets/fonts/proxima-nova/proximanova-semiboldit-webfont.woff2") format('woff2'),
+            url("/assets/fonts/proxima-nova/proximanova-semiboldit-webfont.woff") format('woff');
+        font-weight: normal;
+        font-style: italic;
+    }
+
+    @font-face {
+        font-family: 'proxima';
+        src: url("/assets/fonts/proxima-nova/proximanova-semibold-webfont.woff2") format('woff2'),
+            url("/assets/fonts/proxima-nova/proximanova-semibold-webfont.woff") format('woff');
+        font-weight: 600;
+        font-style: normal;
+    }
+    
+    @font-face {
+        font-family: 'filsonpro';
+        src: url("/assets/fonts/filson-pro/FilsonPro-Medium.woff2") format('woff2'),
+            url("/assets/fonts/filson-pro/FilsonPro-Medium.woff") format('woff');
+        font-weight: 500;
+        font-style: normal;
+    }
+</style>
+<script src="/assets/js/main.js?v=bfd30b6b4df9be7bb26dafdfa2325a3d742bdcfc" type="module"></script>
+
+
+
+
+
+<script type="module" src="/assets/js/modules/toc.js?v=bfd30b6b4df9be7bb26dafdfa2325a3d742bdcfc"></script>
+
+    <script src="/assets/js/modules/wrappDefault.js?v=bfd30b6b4df9be7bb26dafdfa2325a3d742bdcfc" type="module"></script>
+</head>
+<body class="has-toc">
+    <header>
+    <div>
+        <h1>Atelier-Deploiement-1-Nginx</h1>
+
+        
+        
+    </div>
+    <div class="banner">
+        <svg class="logo" alt="" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 370.02 270.2">
+            <defs><style>.cls-1{fill:none;}.cls-2{clip-path:url(#clip-path);}.cls-3{fill:#333;}</style><clipPath id="clip-path" transform="translate(0.01 0.1)"><rect class="cls-1" width="370" height="270"/></clipPath></defs><title>icone_wild_code_school</title><g class="cls-2"><path class="cls-3" d="M170.06,159.84V89.9a10,10,0,0,0-20,0v69.58c0,22.39-18,40.6-40,40.6s-40-18.21-40-40.6V59.9a10,10,0,0,0-20,0v99.94a60,60,0,1,0,120,0" transform="translate(0.01 0.1)"/><path class="cls-3" d="M164.37,49.9a10.18,10.18,0,0,0,9.26-6.11,40,40,0,0,1,36.43-23.86c22.06,0,40,18.22,40,40.6V159.9a10,10,0,0,0,20,0V60a60,60,0,0,0-115-24.05,10.06,10.06,0,0,0,9.3,14" transform="translate(0.01 0.1)"/><path class="cls-3" d="M210.06,49.9h0a10,10,0,0,0-10,10v99.94a60,60,0,1,0,120,0V149.9a10,10,0,0,0-20,0v9.58c0,22.39-17.95,40.6-40,40.6s-40-18.21-40-40.6V59.9a10,10,0,0,0-10-10" transform="translate(0.01 0.1)"/><path class="cls-3" d="M10,89.91a10,10,0,0,0,10-10V60.55c0-22.39,18-40.61,40-40.61s40,18.22,40,40.61V159.9a10,10,0,0,0,20,0V60A60,60,0,1,0,0,60V79.91a10,10,0,0,0,10,10" transform="translate(0.01 0.1)"/><path class="cls-3" d="M20,165.19V129.9a10,10,0,0,0-10.67-10A10.24,10.24,0,0,0,0,130.25v33.6a106.6,106.6,0,0,0,29,72.87,9.74,9.74,0,0,0,14.23-13.3A84.53,84.53,0,0,1,20,165.19" transform="translate(0.01 0.1)"/><path class="cls-3" d="M360.26,10.68A34.86,34.86,0,0,0,338.09,0l-.38,0c-.42,0-.85-.06-1.28-.07l-.79,0L335-.1h-.26c-.14,0-.28,0-.42,0a34.36,34.36,0,0,0-4.09.32l-.17,0h0A35,35,0,0,0,300,34.9v65a10,10,0,0,0,10.67,10A10.23,10.23,0,0,0,320,99.55V35.33a15.29,15.29,0,0,1,14.25-15.41,14.93,14.93,0,0,1,9.59,2.88c.28.21.55.42.81.65l.45.38c.17.15.33.31.48.47s.37.37.54.56l.49.57.46.59c.11.15.22.29.32.44s.38.59.56.9l.22.38c.19.35.37.7.53,1.06,0,.1.08.2.13.3.15.36.29.72.41,1.1l.06.15c.13.42.24.85.34,1.28l.06.28c.08.43.15.87.2,1.32l0,.25c0,.47.07.94.07,1.42V165a85,85,0,0,1-1,13.25,10,10,0,0,0,9.85,11.66h0a10,10,0,0,0,9.88-8.45A105,105,0,0,0,370,165.1V34.9a34.85,34.85,0,0,0-9.75-24.22" transform="translate(0.01 0.1)"/><path class="cls-3" d="M339.61,213.9h-.29a9.88,9.88,0,0,0-7.74,3.81c-.5.62-1,1.23-1.51,1.84q-1.53,1.81-3.16,3.55l0,0a86.86,86.86,0,0,1-7.6,7.14l-.16.14c-.46.38-.93.75-1.4,1.12l-.31.25-1.33,1-.41.31-1.29.94-.49.35-1.27.88-.53.36-1.27.83-.58.36-1.26.79-.6.36-1.28.75-.62.35-1.29.71-.62.33-1.33.69-.6.29c-.46.23-.91.46-1.37.67l-.5.23q-2.49,1.16-5,2.16l-.46.18-1.24.46-.87.31c-.38.14-.77.26-1.15.39l-1,.33-1.12.35-1,.31-1.1.31-1.09.3-1.09.28-1.11.27-1.09.25-1.15.24-1.07.22-1.18.22-1.07.18-1.21.19-1.06.15-1.26.16-1,.13-1.31.13-1,.09-1.38.1-.94.06-1.55.07-.8,0c-.78,0-1.57,0-2.36,0a85,85,0,0,1-68-34.07l-.05.09h0l-.06-.09a14.78,14.78,0,0,0-23.68,0l0,.06A85,85,0,0,1,80.7,246.55,9.94,9.94,0,0,0,75,265.6a102.14,102.14,0,0,0,30.22,4.5,104.36,104.36,0,0,0,44.57-10,105.41,105.41,0,0,0,35.2-27,105,105,0,0,0,142,16.72,10.05,10.05,0,0,0,1.48-1.33l0,0c1.1-.84,2.18-1.69,3.24-2.57l.19-.16c1-.79,1.9-1.61,2.83-2.44l.52-.46q1.17-1.07,2.31-2.16c.3-.3.61-.58.92-.88.64-.63,1.26-1.28,1.89-1.93.34-.35.69-.69,1-1.05l.08-.1c2-2.14,3.94-4.37,5.76-6.68a9.92,9.92,0,0,0-7.73-16.13" transform="translate(0.01 0.1)"/></g>
+        </svg>
+        <span class="title">Atelier-Deploiement-1-Nginx</span>
+        <span class="type">
+            
+            Workshop
+            &nbsp;|&nbsp;
+            <a href="https://github.com/jujuck/Atelier-Deploiement-1-Nginx/issues/new" target="_blank">
+                Feedback <i class="bi bi-box-arrow-up-right"></i>
+            </a>
+        </span>
+    </div>
+</header>
+
+<nav id="toc-nav"></nav>
+
+    <main id="main">
+        
+
+
+
+  
+        <h1 id="atelier-déploiement-nginx-avec-node-js">Atelier Déploiement Nginx avec Node JS</h1>
+
+<h2 id="1-objectifs">1. Objectifs</h2>
+
+<p>Apprendre à déployer un site sous NodeJS avec Nginx</p>
+
+<ul>
+  <li>Nginx et son reverse proxy</li>
+  <li>Git</li>
+  <li>NodeJS (React et Express)</li>
+  <li>PM2</li>
+  <li>SSL et let’s encrypt</li>
+</ul>
+
+<h2 id="2-pré-requis">2. Pré requis</h2>
+
+<ul>
+  <li>Connaissance minimal en terminal Bash (Se déplacer dans les dossier, afficher son arborescence, créer un fichier, éditer un fichier, …)</li>
+  <li>Connexion en ssh au serveur</li>
+  <li>Connaitre git, React et express</li>
+</ul>
+
+<h2 id="3-explication-et-context">3. Explication et context</h2>
+
+<h3 id="31-le-serveur-machine-physique-est-souvent-dédié-à-un-service-">3.1 Le serveur (machine physique) est souvent dédié à un service :</h3>
+
+<ul>
+  <li>Il peut recevoir et traité plusieurs requêtes en même temps.</li>
+  <li>Il est spécialisé dans certaines tâches précises (stockage, calcul, hébergement).</li>
+  <li>Il fonctionne en continu, 24h/24, 7j/7.</li>
+  <li>Il est rarement manipulé directement et fonctionne souvent sans interface graphique (Connexion SSH).</li>
+  <li>Sa puissance est optimisée pour gérer de multiples requêtes en même temps.</li>
+</ul>
+
+<h3 id="32-le-serveur-web-logiciel">3.2 Le serveur web (Logiciel)</h3>
+
+<p>Pour fonctionner sur le web, un serveur a besoin d’un Serveur Web (Logiciel). Ce logiciel permet d’écouter les ports, par défaut pour le web :</p>
+
+<ul>
+  <li>Port 80 pour HTTP (Non sécurisé)</li>
+  <li>Port 443 pour HTTPS (Sécurisé).
+Si une demande (requête) arrive sur un port, le serveur web va prendre en charge la demande et y répondre en fonction des instructions que nous développeurs lui auront donnés</li>
+</ul>
+
+<p>Les 2 serveurs web les plus courants sont Nginx et Apache. Leurs grands missions sont donc :</p>
+
+<ul>
+  <li>Distribuer des pages web : Il reçoit les requêtes HTTP/HTTPS des navigateurs et renvoie les fichiers HTML, CSS, JavaScript et médias demandés.</li>
+  <li>Équilibrage de charge (Load Balancing) : Il peut répartir le trafic entre plusieurs serveurs d’application pour optimiser les performances et assurer une haute disponibilité.</li>
+  <li>Reverse Proxy : Il agit comme intermédiaire entre les clients et vos serveurs d’applications (comme Node.js, PHP, Ruby), redirigeant les requêtes vers le bon service en arrière-plan.</li>
+  <li>Mise en cache : Il stocke temporairement des copies des ressources fréquemment demandées pour accélérer les temps de réponse.</li>
+  <li>Sécurité : Il filtre les requêtes malveillantes, limite les taux de connexion (rate limiting), et gère les certificats SSL/TLS pour les connexions sécurisées.</li>
+  <li>Compression : Il peut compresser les données avant de les envoyer pour réduire la bande passante utilisée.</li>
+  <li>Servir du contenu statique : Il est particulièrement efficace pour délivrer rapidement des fichiers qui ne changent pas (images, CSS, etc.).</li>
+</ul>
+
+<p>Nous allons donc ajouter Nginx à notre serveur. Nginx est apprécié pour sa légèreté, sa rapidité et sa capacité à gérer un grand nombre de connexions simultanées, ce qui en fait un choix populaire pour les sites à fort trafic.</p>
+
+<h2 id="4-installation-des-outils">4. Installation des outils</h2>
+
+<p>Sur linux, avant toute installation, nous allons prendre le reflexe de mettre à jour notre dictionnaire <code class="language-plaintext highlighter-rouge">apt</code>. C’est un peu la liste des packages possibles pour Linux/Ubuntu avec leur version.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+</code></pre></div></div>
+
+<p>Puis nous allons, effectivement mettre à jour les paquets à partir de ce nouveau dictionnaire.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt upgrade
+</code></pre></div></div>
+
+<h3 id="41-git">4.1 Git</h3>
+
+<p>Le premier utilitaire que nous allons avoir besoin vous est bien connu : <strong>GIT</strong>. IL va nous permettre, un peu plus tard dans l’atelier de récupérer notre code sur notre repo GitHub</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>git
+</code></pre></div></div>
+
+<p>Puis vérifie que la CLI est correctement installée.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git <span class="nt">--version</span>
+</code></pre></div></div>
+
+<h3 id="42-node">4.2 Node</h3>
+
+<p>Le deuxième utilitaire à installer est notre runtime: <strong>NodeJS</strong> et son meilleur ami, notre gestionnaire de package.
+:warning: pour optimiser les ressources serveurs et éviter les doublons de packages npm, nous pourrions également installer <code class="language-plaintext highlighter-rouge">pnpm</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>nodejs npm
+</code></pre></div></div>
+
+<p>Puis vérifions que l’installation s’est bien passée</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node <span class="nt">--version</span>
+npm <span class="nt">--version</span>
+</code></pre></div></div>
+
+<h3 id="43-pm2">4.3 PM2</h3>
+
+<p>PM2 est un gestionnaire de processus qui va nous aider à gérer et à garder notre application en ligne. Si nous lançons un processus node (npm run dev) dans notre terminal, celui ci sera coupé, lorsque nous nous déconnecterons. PM2 va nous permettre de lancer ces processus en mode détaché (en arrière plan).</p>
+
+<p>PM2 offre beaucoup d’autres possibilités également dans la gestion de nos logs, nos ressources <a href="https://pm2.keymetrics.io/docs/usage/quick-start/">plus d’infos</a></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install </span>pm2@latest <span class="nt">-g</span>
+</code></pre></div></div>
+
+<p>Ok, je crois que nous sommes bon pour les installation de base…
+Il nous restera <strong>Let’s encrypt</strong>, mais plus tard…</p>
+
+<h2 id="5-configuration-du-serveur-web">5 Configuration du serveur web</h2>
+
+<h3 id="51-nginx">5.1 Nginx</h3>
+
+<p>Pour commencer, nous allons maintenant installer notre logiciel de serveur Web Nginx.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install nginx
+</code></pre></div></div>
+
+<p>Test avec Bruno… Attention en mode http, bloquer par les navigateurs</p>
+
+<p>Arborescence de fichier : d’où vient cette page…
+var/www/html</p>
+
+<p>Y aller et cloner une page web. en https et sudo</p>
+
+<ul>
+  <li>navigation dans l’arborescence via l’URL (Attention: faille de sécurité)</li>
+</ul>
+
+<p>Configuration etc/</p>
+
+<p>/etc/nginx/sites-available/default</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Empêcher l'accès à la racine www/html sauf pour /memorize
+location / {
+    root /var/www/html;
+    deny all; # Bloque l'accès à tout sauf aux exceptions ci-dessous
+}
+</code></pre></div></div>
+
+<p>sudo systemctl reload nginx</p>
+
+<p>Test… Plus accès à rien</p>
+
+<h3 id="52-créer-une-route-pour-accéder-à-cette-ressource-particulière">5.2 Créer une route pour accéder à cette ressource particulière</h3>
+
+<p>location /memorize {
+alias /var/www/html/Memorize;
+try_files $uri $uri/ =404;
+autoindex on; # active la navigation dans les dossiers enfants
+}</p>
+
+<p>Test… Accès à memorize
+Créer un dossier test avec un index.html basique à l’intérieur au niveau de var/www/html…
+Test</p>
+
+<h3 id="53-passons-au-reverse-proxy">5.3 Passons au reverse proxy</h3>
+
+<ul>
+  <li>
+    <p>Dans home
+Clone ton projet fullstack et gère à la main les installations, .env, ….</p>
+  </li>
+  <li>
+    <p>Configure ton projet
+Run les npm install
+Rempli les variables d’env. (Vide pour l’url du client car on appelle la racine puis /api)</p>
+  </li>
+</ul>
+
+<p><strong>Pour le server</strong>
+cd api
+pm2 start “npm run dev” –name server</p>
+
+<p><strong>Pour le client</strong>
+npm run build
+pm2 start “npm run preview” –name client (Port 4173)</p>
+
+<h2 id="6-letencrypt-et-le-certificat-ssl">6. Let’encrypt et le certificat SSL</h2>
+
+<p>https://help.ovhcloud.com/csm/en-vps-install-ssl-certificate?id=kb_article_view&amp;sysparm_article=KB0066249
+jusqu’à la fin de la step 3.</p>
+
+    </main>
+    <footer>
+    &copy; 2025 <a href="https://www.wildcodeschool.com" target="_blank" title="visit Wild Code School website">Wild Code School</a>
+</footer>
+</body>
+</html>
