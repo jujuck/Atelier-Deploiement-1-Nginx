@@ -74,6 +74,11 @@ Puis vérifies que la CLI Git est correctement installée.
 git --version
 ```
 
+Git vient d'être installé en mode `sudo`(SuperAdim). Ton SuperAdmin est donc le propriétaire exclusif de `git` ou autrement dit, ton `user`ne peut faire exécuter `git`.
+Pour y remédier, tu peux éxécuter les commandes : `sudo chown <ton_user>:<ton_user> /usr/bin/git`,
+puis vérifier avec `ls -l /usr/bin/git`
+{: .alert-warning }
+
 ### 4.2 Node
 
 Le deuxième utilitaire à installer est ton runtime: **NodeJS** et son meilleur ami, le gestionnaire de package.
@@ -126,14 +131,27 @@ Par défaut, **_Nginx_** va placer le code à exécuter dans le dossier **_/var/
 Si tu t'y déplaces, tu verras qu'un fichier `index.nginx-debian.html` est présent. C'est la page d'accueil par défaut de Nginx.
 Cela signifie que tout est ok et correctement installé.
 
+Avant de continuer, nous avons encore un conflit de droit d'utilisateur.
+En effet, l'installation de Nginx crée un nouvel utili spécifique `www-data`. Ton `user`n'a donc pas de droit d'écriture dans ses dossiers. Hors, tu vas devoir cloner ton projet chez lui (`www-data`).
+{: .alert-warning }
+
+AAAAAAAAAAAAAAHHH!!!! windows est tellement plus simple sans tout ses verrouillages.
+Certes, mais ceci est mis en place pour des raisons de sécurité.
+
+- Alors, ajoutes notre `user` au groupe `www-data` (on va être copains) : `sudo usermod -aG www-data $USER`
+- Puis ajoutes ton user en propriétaire du dossier cible : `sudo chown -R $USER:www-data /var/www/html`
+- Et enfin, appliques les bonnes permissions `sudo chmod -R 775 /var/www/html`
+
 ### 5.2 Déployer un site static
 
 Pour commencer, vas dans ce fameux dossier `var/www/html` puis clones un projet static (HTML, CSS, JS).
 Si tu n'en as pas sous le coude : `https://github.com/jujuck/Memorize.git`
 
 ```bash
-sudo git clone <ton_url_de_repo>
+git clone <ton_url_de_repo>
 ```
+
+**_Normalement, tu n'as pas besoin d'éxécuter la commande en `sudo`. Si oui, il faudra revenir sur les 2 opération `git`et `nginx`de gestion de droit_**
 
 Super!!!
 Si tu vas sur ton client API et que tu ajoutes le nom de ton dossier à ton nom de domaine, tu devrais accéder à ton site web (Attention, le fichier racine doit être un **_index.html_**)

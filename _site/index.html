@@ -7,12 +7,12 @@
 
 
 <title>Atelier-Deploiement-1-Nginx | Wild code school</title>
-<link rel="stylesheet" href="/assets/css/style.css?v=8c1b5b52d9c9083e4d62d6891d3b6e1bb59828a7">
-<link rel="stylesheet" href="/assets/css/syntax_monokai.css?v=8c1b5b52d9c9083e4d62d6891d3b6e1bb59828a7">
+<link rel="stylesheet" href="/assets/css/style.css?v=2281d2ef32b8abb20029d5e72d878b373820bb3e">
+<link rel="stylesheet" href="/assets/css/syntax_monokai.css?v=2281d2ef32b8abb20029d5e72d878b373820bb3e">
 
 
 <link rel="icon" href="/assets/images/fav-icon-dev.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/assets/css/theme-dev.css?v=8c1b5b52d9c9083e4d62d6891d3b6e1bb59828a7">
+<link rel="stylesheet" href="/assets/css/theme-dev.css?v=2281d2ef32b8abb20029d5e72d878b373820bb3e">
 
 <style>
     :root {
@@ -76,15 +76,15 @@
         font-style: normal;
     }
 </style>
-<script src="/assets/js/main.js?v=8c1b5b52d9c9083e4d62d6891d3b6e1bb59828a7" type="module"></script>
+<script src="/assets/js/main.js?v=2281d2ef32b8abb20029d5e72d878b373820bb3e" type="module"></script>
 
 
 
 
 
-<script type="module" src="/assets/js/modules/toc.js?v=8c1b5b52d9c9083e4d62d6891d3b6e1bb59828a7"></script>
+<script type="module" src="/assets/js/modules/toc.js?v=2281d2ef32b8abb20029d5e72d878b373820bb3e"></script>
 
-    <script src="/assets/js/modules/wrappDefault.js?v=8c1b5b52d9c9083e4d62d6891d3b6e1bb59828a7" type="module"></script>
+    <script src="/assets/js/modules/wrappDefault.js?v=2281d2ef32b8abb20029d5e72d878b373820bb3e" type="module"></script>
 </head>
 <body class="has-toc">
     <header>
@@ -200,6 +200,10 @@ Si une demande (requête) arrive sur un port, le serveur web va prendre en charg
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git <span class="nt">--version</span>
 </code></pre></div></div>
 
+<p class="alert-warning">Git vient d’être installé en mode <code class="language-plaintext highlighter-rouge">sudo</code>(SuperAdim). Ton SuperAdmin est donc le propriétaire exclusif de <code class="language-plaintext highlighter-rouge">git</code> ou autrement dit, ton <code class="language-plaintext highlighter-rouge">user</code>ne peut faire exécuter <code class="language-plaintext highlighter-rouge">git</code>.
+Pour y remédier, tu peux éxécuter les commandes : <code class="language-plaintext highlighter-rouge">sudo chown &lt;ton_user&gt;:&lt;ton_user&gt; /usr/bin/git</code>,
+puis vérifier avec <code class="language-plaintext highlighter-rouge">ls -l /usr/bin/git</code></p>
+
 <h3 id="42-node">4.2 Node</h3>
 
 <p>Le deuxième utilitaire à installer est ton runtime: <strong>NodeJS</strong> et son meilleur ami, le gestionnaire de package.</p>
@@ -245,13 +249,27 @@ Il te restera <strong>Let’s encrypt</strong>, mais plus tard…</p>
 Si tu t’y déplaces, tu verras qu’un fichier <code class="language-plaintext highlighter-rouge">index.nginx-debian.html</code> est présent. C’est la page d’accueil par défaut de Nginx.
 Cela signifie que tout est ok et correctement installé.</p>
 
+<p class="alert-warning">Avant de continuer, nous avons encore un conflit de droit d’utilisateur.
+En effet, l’installation de Nginx crée un nouvel utili spécifique <code class="language-plaintext highlighter-rouge">www-data</code>. Ton <code class="language-plaintext highlighter-rouge">user</code>n’a donc pas de droit d’écriture dans ses dossiers. Hors, tu vas devoir cloner ton projet chez lui (<code class="language-plaintext highlighter-rouge">www-data</code>).</p>
+
+<p>AAAAAAAAAAAAAAHHH!!!! windows est tellement plus simple sans tout ses verrouillages.
+Certes, mais ceci est mis en place pour des raisons de sécurité.</p>
+
+<ul>
+  <li>Alors, ajoutes notre <code class="language-plaintext highlighter-rouge">user</code> au groupe <code class="language-plaintext highlighter-rouge">www-data</code> (on va être copains) : <code class="language-plaintext highlighter-rouge">sudo usermod -aG www-data $USER</code></li>
+  <li>Puis ajoutes ton user en propriétaire du dossier cible : <code class="language-plaintext highlighter-rouge">sudo chown -R $USER:www-data /var/www/html</code></li>
+  <li>Et enfin, appliques les bonnes permissions <code class="language-plaintext highlighter-rouge">sudo chmod -R 775 /var/www/html</code></li>
+</ul>
+
 <h3 id="52-déployer-un-site-static">5.2 Déployer un site static</h3>
 
 <p>Pour commencer, vas dans ce fameux dossier <code class="language-plaintext highlighter-rouge">var/www/html</code> puis clones un projet static (HTML, CSS, JS).
 Si tu n’en as pas sous le coude : <code class="language-plaintext highlighter-rouge">https://github.com/jujuck/Memorize.git</code></p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>git clone &lt;ton_url_de_repo&gt;
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone &lt;ton_url_de_repo&gt;
 </code></pre></div></div>
+
+<p><strong><em>Normalement, tu n’as pas besoin d’éxécuter la commande en <code class="language-plaintext highlighter-rouge">sudo</code>. Si oui, il faudra revenir sur les 2 opération <code class="language-plaintext highlighter-rouge">git</code>et <code class="language-plaintext highlighter-rouge">nginx</code>de gestion de droit</em></strong></p>
 
 <p>Super!!!
 Si tu vas sur ton client API et que tu ajoutes le nom de ton dossier à ton nom de domaine, tu devrais accéder à ton site web (Attention, le fichier racine doit être un <strong><em>index.html</em></strong>)
